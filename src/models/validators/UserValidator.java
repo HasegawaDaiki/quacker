@@ -2,8 +2,6 @@ package models.validators;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 
@@ -70,6 +68,7 @@ public class UserValidator {
     // メールアドレス
     private static String _validateEmail(String email, Boolean email_duplicate_check_flag) {
         // 正しいメールアドレスかどうかのチェック
+        /*
         boolean result;
         String aText = "[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]";
         String dotAtom = aText + "+" + "(\\." + aText + "+)*";
@@ -78,6 +77,7 @@ public class UserValidator {
         if (result) {
             return "メールアドレスが正しくありません";
         }
+        */
 
         // 重複するメールアドレスがないかのチェック
         if(email_duplicate_check_flag) {
@@ -94,6 +94,7 @@ public class UserValidator {
         return "";
     }
 
+    /*
     private static boolean _checkMailAddress(String email, String regularExpression) {
         Pattern pattern = Pattern.compile(regularExpression);
         Matcher matcher = pattern.matcher(email);
@@ -102,6 +103,7 @@ public class UserValidator {
         }
         return false;
     }
+    */
 
     // パスワードの必須入力チェック
     private static String _validatePassword(String password, Boolean password_check_flag) {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HomeIndexServlet
  */
-@WebServlet("/home.html")
+@WebServlet("/home/index.html")
 public class HomeIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,11 @@ public class HomeIndexServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", (String)request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/home/index.jsp");
         rd.forward(request, response);
     }
