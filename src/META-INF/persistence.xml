@@ -6,8 +6,8 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver
 "/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/message_board?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
-jdbc:mysql://localhost/message_board?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/quacker?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
+jdbc:mysql://localhost/quacker?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8
 "/>
 			<property name="javax.persistence.jdbc.user" value="quauser"/>
 			<property name="javax.persistence.jdbc.password" value="quapass"/>
