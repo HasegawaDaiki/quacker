@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>ユーザ一覧</h2>
+        <h2>ユーザ 一覧</h2>
         <ul>
             <c:forEach var="user" items="${users}">
                 <li>
-                    <c:out value="${user.name}" />@<c:out value="${user.address}" />
+                    <c:out value="${user.name}" />@<c:out value="${user.user_id}" />
                     <c:choose>
                         <c:when test="${user.delete_flag == 1}">
                             (削除済み)

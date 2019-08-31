@@ -22,8 +22,8 @@ import javax.persistence.Table;
             query ="SELECT COUNT(u) FROM User AS u"
             ),
     @NamedQuery(
-            name = "checkRegisteredAddress",
-            query = "SELECT COUNT(u) FROM User AS u WHERE u.address = :address"
+            name = "checkRegisteredUser_id",
+            query = "SELECT COUNT(u) FROM User AS u WHERE u.user_id = :user_id"
             ),
     @NamedQuery(
             name = "checkRegisteredEmail",
@@ -38,8 +38,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "address", nullable = false, unique = true)
-    private String address;
+    @Column(name = "user_id", nullable = false, unique = true)
+    private String user_id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -67,12 +67,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {

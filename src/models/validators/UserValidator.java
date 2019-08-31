@@ -11,12 +11,12 @@ import models.User;
 import utils.DBUtil;
 
 public class UserValidator {
-    public static List<String> validate(User u, Boolean address_duplicate_check_flag, Boolean email_duplicate_check_flag, Boolean password_check_flag) {
+    public static List<String> validate(User u, Boolean user_id_duplicate_check_flag, Boolean email_duplicate_check_flag, Boolean password_check_flag) {
         List<String> errors = new ArrayList<String>();
 
-        String address_error = _validateAddress(u.getAddress(), address_duplicate_check_flag);
-        if(!address_error.equals("")) {
-            errors.add(address_error);
+        String user_id_error = _validateUser_id(u.getUser_id(), user_id_duplicate_check_flag);
+        if(!user_id_error.equals("")) {
+            errors.add(user_id_error);
         }
 
         String name_error = _validateName(u.getName());
@@ -37,22 +37,22 @@ public class UserValidator {
         return errors;
     }
 
-    // ユーザアドレス
-    private static String _validateAddress(String address, Boolean address_duplicate_check_flag) {
+    // ユーザID
+    private static String _validateUser_id(String user_id, Boolean user_id_duplicate_check_flag) {
         // 必須入力チェック
-        if(address == null || address.equals("")) {
-            return "ユーザアドレスを入力してください。";
+        if(user_id == null || user_id.equals("")) {
+            return "ユーザIDを入力してください。";
         }
 
-        // 既に登録されているユーザアドレスとの重複チェック
-        if(address_duplicate_check_flag) {
+        // 既に登録されているユーザIDとの重複チェック
+        if(user_id_duplicate_check_flag) {
             EntityManager em = DBUtil.createEntityManager();
-            long users_count = (long)em.createNamedQuery("checkRegisteredAddress", Long.class)
-                                           .setParameter("address", address)
+            long users_count = (long)em.createNamedQuery("checkRegisteredUser_id", Long.class)
+                                           .setParameter("user_id", user_id)
                                              .getSingleResult();
             em.close();
             if(users_count > 0) {
-                return "入力されたユーザアドレスは既に使用されています";
+                return "入力されたユーザIDは既に使用されています";
             }
         }
 
