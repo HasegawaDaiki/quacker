@@ -18,7 +18,7 @@
 <br /><br />
 
 <label for="email">メールアドレス</label><br />
-<input type="text" name="email" value="${user.email}">
+<input type="email" name="email" value="${user.email}">
 <br /><br />
 
 <label for="password">パスワード</label><br />
