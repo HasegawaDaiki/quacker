@@ -14,7 +14,6 @@
                     </c:choose>
                 </li>
             </c:forEach>
-            <li>
         </ul>
 
         <div id="pagination">
