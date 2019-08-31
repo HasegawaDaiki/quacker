@@ -2,6 +2,8 @@ package models.validators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 
@@ -68,16 +70,14 @@ public class UserValidator {
     // メールアドレス
     private static String _validateEmail(String email, Boolean email_duplicate_check_flag) {
         // 正しいメールアドレスかどうかのチェック
-        /*
-        boolean result;
-        String aText = "[\\w!#%&'/=~`\\*\\+\\?\\{\\}\\^\\$\\-\\|]";
-        String dotAtom = aText + "+" + "(\\." + aText + "+)*";
-        String regularExpression = "^" + dotAtom + "@" + dotAtom + "$";
-        result = _checkMailAddress(email, regularExpression);
-        if (result) {
+        Pattern p = Pattern.compile(
+                "^(([0-9a-zA-Z!#\\$%&'\\*\\+\\-/=\\?\\^_`\\{\\}\\|~]+(\\.[0-9a-zA-Z!#\\$%&'\\*\\+\\-/=\\?\\^_`\\{\\}\\|~]+)*)|(\"[^\"]*\"))"
+                        + "@[0-9a-zA-Z!#\\$%&'\\*\\+\\-/=\\?\\^_`\\{\\}\\|~]+"
+                        + "(\\.[0-9a-zA-Z!#\\$%&'\\*\\+\\-/=\\?\\^_`\\{\\}\\|~]+)*$");
+        Matcher m = p.matcher(email);
+        if(!m.find()) {
             return "メールアドレスが正しくありません";
         }
-        */
 
         // 重複するメールアドレスがないかのチェック
         if(email_duplicate_check_flag) {
@@ -87,23 +87,12 @@ public class UserValidator {
                                              .getSingleResult();
             em.close();
             if(users_count > 0) {
-                return "入力されたユーザアドレスは既に使用されています";
+                return "入力されたメールアドレスは既に使用されています";
             }
         }
 
         return "";
     }
-
-    /*
-    private static boolean _checkMailAddress(String email, String regularExpression) {
-        Pattern pattern = Pattern.compile(regularExpression);
-        Matcher matcher = pattern.matcher(email);
-        if (matcher.find()) {
-            return true;
-        }
-        return false;
-    }
-    */
 
     // パスワードの必須入力チェック
     private static String _validatePassword(String password, Boolean password_check_flag) {
