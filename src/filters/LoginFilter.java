@@ -49,7 +49,12 @@ public class LoginFilter implements Filter {
             User u = (User)session.getAttribute("login_user");
 
             if(!servlet_path.equals("/login")) {          // ログイン画面以外について
-
+                // ログアウトしている状態であれば
+                // ログイン画面にリダイレクト
+                if(u == null) {
+                    ((HttpServletResponse)response).sendRedirect(context_path + "/login");
+                    return;
+                }
             } else {
                 // ログインしているのにログイン画面を表示させようとした場合は
                 // ホームぺージにリダイレクト
