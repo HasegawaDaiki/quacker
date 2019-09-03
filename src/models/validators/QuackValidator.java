@@ -1,27 +1,19 @@
 package models.validators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import models.Quack;
 
 public class QuackValidator {
-    public static List<String> validate(Quack q) {
-        List<String> errors = new ArrayList<String>();
+    public static String validate(Quack q) {
+        String error = new String();
 
-        String content_error = _validateContent(q.getContent());
-        if(!content_error.equals("")) {
-            errors.add(content_error);
+        if(q.getContent() == null || q.getContent().equals("")) {    // 内容が空かどうかのチェック
+            error = "内容を入力してください。";
+        } else if(q.getContent().length() > 200) {                  // 200文字の字数制限以内であるかのチェック
+            error = "200文字以内で入力してください";
+        } else {
+            error = "";
         }
 
-        return errors;
-    }
-
-    public static String _validateContent(String content) {
-        if(content == null || content.equals("")) {
-            return "内容を入力してください。";
-        }
-
-        return "";
+         return error;
     }
 }
