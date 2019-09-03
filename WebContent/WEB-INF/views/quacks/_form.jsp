@@ -10,7 +10,7 @@
     </div>
 </c:if>
 <label for="content">内容</label><br />
-<textarea name="content" rows="10" cols="50"></textarea>
+<textarea name="content" rows="10" cols="50">${quack.content}</textarea>
 <br /><br />
 
 <button type="submit">投稿</button>
