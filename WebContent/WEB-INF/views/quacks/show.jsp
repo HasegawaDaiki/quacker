@@ -4,7 +4,7 @@
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <c:choose>
-            <c:when test="${quack != null}">
+            <c:when test="${quack != null && quack.delete_flag == 0}">
                 <h2>クアック詳細</h2>
 
                 <table>
@@ -29,7 +29,10 @@
                 </table>
 
                 <c:if test="${sessionScope.login_user.id == quack.user.id}">
-                    <p><a href="<c:url value='/quacks/delete?id=${quack.id}' />">クアックを削除</a></p>
+                    <form method="POST" action="<c:url value='/quacks/destroy' />">
+                        <input type="hidden" name="quack_id" value="${quack.id}" />
+                        <button type="submit">クアックを削除</button>
+                    </form>
                 </c:if>
             </c:when>
             <c:otherwise>
