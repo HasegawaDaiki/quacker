@@ -5,7 +5,7 @@
     <c:param name="content">
         <c:choose>
             <c:when test="${user != null}">
-                <h2>${user.name}@${user.id}さんのページ</h2>
+                <h2>${user.name}@${user.user_id}さんのページ</h2>
 
                 <table>
                     <tbody>
