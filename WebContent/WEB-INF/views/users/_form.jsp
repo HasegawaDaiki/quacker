@@ -25,4 +25,5 @@
 <input type="password" name="password" />
 <br /><br />
 
+<input type="hidden" name="previous_user_id" value="${user.user_id}" />
 <button type="submit">完了</button>
