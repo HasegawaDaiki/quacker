@@ -93,8 +93,6 @@ public class UsersUpdateServlet extends HttpServlet {
             em.close();
             request.getSession().setAttribute("flush", "更新が完了しました");
 
-            request.getSession().removeAttribute("user_id");
-
             response.sendRedirect(request.getContextPath() + "/users/show?user_id=" + u.getUser_id());
 
         }

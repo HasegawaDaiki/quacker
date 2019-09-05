@@ -5,6 +5,12 @@
     <c:param name="content">
         <c:choose>
             <c:when test="${user != null}">
+                <c:if test="${flush != null}">
+                    <div class="flush_success">
+                        ${flush}
+                    </div>
+                </c:if>
+
                 <h2>${user.name}@${user.user_id}さんのページ</h2>
 
                 <table>
