@@ -82,7 +82,7 @@ public class loginServlet extends HttpServlet {
 
         if(!check_result) {
             // 認証できなかったらログイン画面に戻る
-            request.setAttribute("hasError", true);
+            request.setAttribute("error", "ユーザIDかパスワードが間違っています");
             request.setAttribute("user_id", user_id);
 
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");
