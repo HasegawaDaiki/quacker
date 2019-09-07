@@ -35,10 +35,13 @@ public class loginServlet extends HttpServlet {
      */
     // ログイン画面を表示
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("hasError", false);
         if(request.getSession().getAttribute("flush") != null) {
                 request.setAttribute("flush",  request.getSession().getAttribute("flush"));
                 request.getSession().removeAttribute("flush");
+        }
+        if(request.getSession().getAttribute("error") != null) {
+            request.setAttribute("error",  request.getSession().getAttribute("error"));
+            request.getSession().removeAttribute("error");
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");

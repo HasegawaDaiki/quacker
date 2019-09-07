@@ -4,7 +4,12 @@
     <c:param name="content">
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                <c:out value="${flush}" />
+            </div>
+        </c:if>
+        <c:if test="${error != null}">
+            <div id="flush_error">
+                <c:out value="${error}" />
             </div>
         </c:if>
         <h2>ホーム</h2>

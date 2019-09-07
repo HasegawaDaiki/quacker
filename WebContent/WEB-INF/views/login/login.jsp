@@ -2,16 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
-        <c:if test="${error != null}">
-            <div id="flush_error">
-                ${error}
-            </div>
-        </c:if>
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                <c:out value="${flush}" />
             </div>
         </c:if>
+        <c:if test="${error != null}">
+            <div id="flush_error">
+                <c:out value="${error}" />
+            </div>
+        </c:if>
+
         <h2>ログイン</h2>
         <form method="POST" action="<c:url value='/login' />">
             <label for="user_id">ユーザID</label><br />

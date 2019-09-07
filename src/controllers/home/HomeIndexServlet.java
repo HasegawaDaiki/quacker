@@ -33,6 +33,11 @@ public class HomeIndexServlet extends HttpServlet {
             request.getSession().removeAttribute("flush");
         }
 
+        if(request.getSession().getAttribute("error") != null) {
+            request.setAttribute("error", (String)request.getSession().getAttribute("error"));
+            request.getSession().removeAttribute("error");
+        }
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/home/index.jsp");
         rd.forward(request, response);
     }
