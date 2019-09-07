@@ -25,5 +25,7 @@
 
             <button type="submit">ログイン</button>
         </form>
+
+        <p><a href="<c:url value='/users/new' />">新規ユーザ登録</a></p>
     </c:param>
 </c:import>

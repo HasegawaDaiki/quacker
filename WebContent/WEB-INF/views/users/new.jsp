@@ -6,7 +6,9 @@
 
         <form method="POST" action="<c:url value='/users/create' />">
             <c:import url="_form.jsp" />
-        </form>
+        </form><br /><br />
 
+        アカウントをお持ちの方
+        <p><a href="<c:url value='/login' />">ログイン</a></p>
     </c:param>
 </c:import>

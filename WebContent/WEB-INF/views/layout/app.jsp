@@ -11,17 +11,24 @@
         <div id="wrapper">
             <div id="header">
                 <h1><a href="<c:url value='/home' />">Quacker</a></h1>&nbsp;&nbsp;&nbsp;
-                <c:if test="${sessionScope.login_user != null}">
-                    <div id="quack">
-                        <a href="<c:url value='/quacks/new' />">クアック!</a>&nbsp;&nbsp;
-                    </div>
-                    <div id="user_name">
-                        <c:out value="${sessionScope.login_user.name}" />@<c:out value="${sessionScope.login_user.user_id}" />
-                    </div>
-                    <div id="logout">
-                        <a href="<c:url value='/logout' />">ログアウト</a>
-                    </div>
-                </c:if>
+                <c:choose>
+                    <c:when test="${sessionScope.login_user != null}">
+                        <div id="quack">
+                            <a href="<c:url value='/quacks/new' />">クアック!</a>&nbsp;&nbsp;
+                        </div>
+                        <div id="user_name">
+                            <c:out value="${sessionScope.login_user.name}" />@<c:out value="${sessionScope.login_user.user_id}" />
+                        </div>
+                        <div id="logout">
+                            <a href="<c:url value='/logout' />">ログアウト</a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div id="login">
+                            <a href="<c:url value='/login' />">ログイン</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div id="content">
                 ${param.content}

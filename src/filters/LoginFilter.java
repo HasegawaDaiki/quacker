@@ -48,18 +48,17 @@ public class LoginFilter implements Filter {
             // セッションスコープに保存されたユーザ情報を取得
             User u = (User)session.getAttribute("login_user");
 
-            if(!servlet_path.equals("/login")) {          // ログイン画面以外について
-                // ログアウトしている状態であれば
-                // ログイン画面にリダイレクト
-                if(u == null) {
-                    ((HttpServletResponse)response).sendRedirect(context_path + "/login");
+            if(u != null) {                                                                   // ログインユーザ
+                if(servlet_path.equals("/login") || servlet_path.equals("/users/new")) {      // ログイン画面とユーザ新規登録画面にはアクセスできない
+                    session.setAttribute("error", "指定のページにアクセスするにはログアウトしてください");
+                    ((HttpServletResponse)response).sendRedirect(context_path + "/home");
                     return;
                 }
-            } else {
-                // ログインしているのにログイン画面を表示させようとした場合は
-                // ホームぺージにリダイレクト
-                if(u != null) {
-                    ((HttpServletResponse)response).sendRedirect(context_path + "/home");
+
+            } else {                                                                          // ログアウトユーザ
+                if(!servlet_path.equals("/login") && !servlet_path.equals("/users/new")) {    // ログイン画面とユーザ新規登録画面のみアクセス可能
+                    session.setAttribute("error", "ログインしてください");
+                    ((HttpServletResponse)response).sendRedirect(context_path + "/login");
                     return;
                 }
             }
