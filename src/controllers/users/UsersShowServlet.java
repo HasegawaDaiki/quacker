@@ -1,6 +1,8 @@
 package controllers.users;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Quack;
 import models.User;
 import utils.DBUtil;
 
@@ -36,6 +39,7 @@ public class UsersShowServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         User u = null;
+        List<Quack> quacks = new ArrayList<Quack>();
 
         try {
             u = em.createNamedQuery("findUserByUser_id", User.class)
@@ -43,9 +47,16 @@ public class UsersShowServlet extends HttpServlet {
                         .getSingleResult();
         } catch (NoResultException ex) {}
 
+        if (u != null) {
+            quacks = em.createNamedQuery("findQuacksByUser_id", Quack.class)
+                        .setParameter("user_id", u.getUser_id())
+                        .getResultList();
+        }
+
         em.close();
 
         request.setAttribute("user", u);
+        request.setAttribute("quacks", quacks);
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", (String)request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");

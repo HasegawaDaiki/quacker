@@ -38,6 +38,25 @@
                     </tbody>
                 </table>
 
+                <table>
+                    <tr>
+                        <th>ユーザ</th>
+                        <th>日時</th>
+                        <th>クアック</th>
+                        <th>表示</th>
+                    </tr>
+                <c:forEach var="quack" items="${quacks}" varStatus="status">
+                    <c:if test="${quack.delete_flag == 0}">
+                        <tr>
+                            <td><c:out value="${quack.user.name}" />@<c:out value="${quack.user.user_id}" /></td>
+                            <td><c:out value="${quack.created_at}" /></td>
+                            <td><c:out value="${quack.content}" /></td>
+                            <td><a href="<c:url value='/quacks/show?id=${quack.id}' />">詳細</a></td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+                </table>
+
                 <c:if test="${sessionScope.login_user.id == quack.user.id}">
                     <p><a href="<c:url value='/quacks/delete' />">削除</a></p>
                 </c:if>

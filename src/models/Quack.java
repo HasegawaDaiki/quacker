@@ -24,6 +24,10 @@ import javax.persistence.Table;
             name = "getQuacksCount",
             query = "SELECT COUNT(q) FROM Quack AS q"
             ),
+    @NamedQuery(
+            name = "findQuacksByUser_id",
+            query = "SELECT q From Quack AS q WHERE q.user.user_id = :user_id ORDER BY q.id DESC"
+            )
 })
 
 @Entity
