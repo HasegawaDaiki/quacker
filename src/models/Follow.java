@@ -16,12 +16,16 @@ import javax.persistence.Table;
 @Table(name="follow_relations")
 @NamedQueries({
     @NamedQuery(
+            name = "checkRegisteredFollowerAndFollowee",
+            query = "SELECT f FROM Follow AS f WHERE f.follower.user_id = :follower_id AND f.followee.user_id = :followee_id"
+            ),
+    @NamedQuery(
             name = "getFollowersOfFolloweeUser_id",
-            query = "SELECT f FROM Follow AS f WHERE f.followee.user_id = :user_id"
+            query = "SELECT f.follower FROM Follow AS f WHERE f.followee.user_id = :user_id"
             ),
     @NamedQuery(
             name = "getFolloweesOfFollowerUser_id",
-            query = "SELECT f FROM Follow AS f WHERE f.follower.user_id = :user_id"
+            query = "SELECT f.followee FROM Follow AS f WHERE f.follower.user_id = :user_id"
             )
 })
 
