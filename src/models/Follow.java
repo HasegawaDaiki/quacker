@@ -9,9 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Table(name="follow_relations")
+@NamedQueries({
+    @NamedQuery(
+            name = "getFollowersOfFolloweeUser_id",
+            query = "SELECT f FROM Follow AS f WHERE f.followee.user_id = :user_id"
+            ),
+    @NamedQuery(
+            name = "getFolloweesOfFollowerUser_id",
+            query = "SELECT f FROM Follow AS f WHERE f.follower.user_id = :user_id"
+            )
+})
 
 @Entity
 public class Follow {
