@@ -11,7 +11,7 @@
                 </form>
                 <br /><br />
 
-                <form method="POST" action="<c:url value='/users/destroy' />">
+                <form method="POST" action="<c:url value='users/destroy' />">
                     <input type="hidden" name="user_id" value="${user.user_id}">
                     <button type="submit">削除</button>
                 </form>
