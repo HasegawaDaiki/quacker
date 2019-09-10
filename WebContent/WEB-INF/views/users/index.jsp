@@ -11,6 +11,14 @@
                         <c:when test="${user.delete_flag == 1}">
                             (削除済み)
                         </c:when>
+                        <c:otherwise>
+                            <c:if test="${user.id != sessionScope.login_user.id}">
+                                <form method="POST" action="<c:url value='follows/create' />">
+                                    <input type="hidden" name="followee_id" value="${user.user_id}" />
+                                    <button type="submit">フォローする</button>
+                                </form>
+                            </c:if>
+                        </c:otherwise>
                     </c:choose>
                 </li>
             </c:forEach>
