@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,25 +38,39 @@ public class FollowsCreateServlet extends HttpServlet {
 
         Follow f = new Follow();
 
-        User follower = (User)request.getSession().getAttribute("login_user");
-
-        User followee = em.createNamedQuery("findUserByUser_id", User.class)
-                .setParameter("user_id", request.getParameter("followee_id"))
-                .getSingleResult();
-
-        f.setFollower(follower);
-        f.setFollowee(followee);
+        f.setFollower((User)request.getSession().getAttribute("login_user"));
+        f.setFollowee(
+                em.createNamedQuery("findUserByUser_id", User.class)
+                  .setParameter("user_id", request.getParameter("followee_id"))
+                  .getSingleResult()
+                );
 
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         f.setCreated_at(currentTime);
         f.setUpdated_at(currentTime);
         f.setDelete_flag(0);
 
+        Follow registered_follow = null;
+
+        try {
+            registered_follow = em.createNamedQuery("checkRegisteredFollowerAndFollowee", Follow.class)
+                    .setParameter("follower_id", f.getFollower().getUser_id())
+                    .setParameter("followee_id", f.getFollowee().getUser_id())
+                    .getSingleResult();
+        } catch (NoResultException ex) {}
+
         em.getTransaction().begin();
-        em.persist(f);
+
+        if(registered_follow == null) {
+            em.persist(f);
+            request.getSession().setAttribute("flush", "フォローしました");
+        } else {
+            em.remove(registered_follow);
+            request.getSession().setAttribute("flush",  "フォローを解除しました");
+        }
+
         em.getTransaction().commit();
         em.close();
-        request.getSession().setAttribute("flush", "フォローしました");
 
         response.sendRedirect(request.getContextPath() + "/home");
     }
