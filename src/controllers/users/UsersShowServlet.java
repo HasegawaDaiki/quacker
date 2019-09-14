@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Follow;
 import models.Quack;
 import models.User;
 import utils.DBUtil;
@@ -41,10 +40,6 @@ public class UsersShowServlet extends HttpServlet {
 
         User u = null;
         List<Quack> quacks = new ArrayList<Quack>();
-        List<Follow> follows_follower = new ArrayList<Follow>();
-        List<Follow> follows_followee = new ArrayList<Follow>();
-        List<User> followers = new ArrayList<User>();
-        List<User> followees = new ArrayList<User>();
 
         try {
             u = em.createNamedQuery("findUserByUser_id", User.class)
@@ -56,32 +51,12 @@ public class UsersShowServlet extends HttpServlet {
             quacks = em.createNamedQuery("findQuacksByUser_id", Quack.class)
                         .setParameter("user_id", u.getUser_id())
                         .getResultList();
-
-            follows_follower = em.createNamedQuery("findFollowersByFolloweeUser_id", Follow.class)
-                           .setParameter("user_id", u.getUser_id())
-                           .getResultList();
-
-            for (Follow f : follows_follower) {
-                followers.add(f.getFollower());
-            }
-
-            follows_followee = em.createNamedQuery("findFolloweesByFollowerUser_id", Follow.class)
-                           .setParameter("user_id", u.getUser_id())
-                           .getResultList();
-
-            for (Follow f : follows_followee) {
-                followees.add(f.getFollower());
-            }
-
-
         }
 
         em.close();
 
         request.setAttribute("user", u);
         request.setAttribute("quacks", quacks);
-        request.setAttribute("followers", followers);
-        request.setAttribute("followees", followees);
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", (String)request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");

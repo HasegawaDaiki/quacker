@@ -11,12 +11,10 @@
                             <c:forEach var="follower" items="${followers}">
                                 <li>
                                     <c:out value="${follower.name}" />@<c:out value="${follower.user_id}" />
-                                    <c:if test="${follower.id != sessionScope.login_user.id}">
-                                        <form method="POST" action="<c:url value='follows/create' />">
-                                            <input type="hidden" name="followee_id" value="${follower.user_id}" />
-                                            <button type="submit">フォローする</button>
-                                        </form>
-                                    </c:if>
+                                    <form method="POST" action="<c:url value='follows/create' />">
+                                        <input type="hidden" name="followee_id" value="${follower.user_id}" />
+                                        <button type="submit">フォローする</button>
+                                    </form>
                                 </li>
                             </c:forEach>
                         </ul>
