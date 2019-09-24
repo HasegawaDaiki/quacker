@@ -52,10 +52,15 @@ public class UsersFollowersServlet extends HttpServlet {
                     .getResultList();
         }
 
+        List<User> following_users = em.createNamedQuery("getFolloweesOfFollowerUser_id", User.class)
+                .setParameter("user_id", ((User)(request.getSession().getAttribute("login_user"))).getUser_id())
+                .getResultList();
+
         em.close();
 
         request.setAttribute("user", u);
         request.setAttribute("followers", followers);
+        request.setAttribute("following_users", following_users);
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/followers.jsp");
         rd.forward(request, response);
     }

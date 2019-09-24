@@ -47,11 +47,16 @@ public class UsersIndexServlet extends HttpServlet {
         long users_count = (long)em.createNamedQuery("getUsersCount", Long.class)
                                        .getSingleResult();
 
+        List<User> following_users = em.createNamedQuery("getFolloweesOfFollowerUser_id", User.class)
+                                 .setParameter("user_id", ((User)(request.getSession().getAttribute("login_user"))).getUser_id())
+                                 .getResultList();
+
         em.close();
 
         request.setAttribute("users", users);
         request.setAttribute("users_count", users_count);
         request.setAttribute("page", page);
+        request.setAttribute("following_users", following_users);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/index.jsp");
         rd.forward(request, response);
