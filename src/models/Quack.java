@@ -30,7 +30,7 @@ import javax.persistence.Table;
             ),
     @NamedQuery(
             name = "getQuacksOfFollowingUser",
-            query = "SELECT q FROM Quack AS q WHERE q.user.user_id IN (:user_id) ORDER BY q.created_at DESC"
+            query = "SELECT q FROM Quack AS q WHERE q.user.user_id IN :user_id ORDER BY q.created_at DESC"
             )
 })
 
