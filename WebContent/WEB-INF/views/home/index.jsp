@@ -13,5 +13,11 @@
             </div>
         </c:if>
         <h2>ホーム</h2>
+        <ul>
+            <c:forEach var="quack" items="${quacks}" varStatus="status">
+                <li><c:out value="${quack.user.user_id}" />@<c:out value="${quack.user.name}" /> : <c:out value="${quack.created_at}" /> : <c:out value="${quack.content}" /></li>
+            </c:forEach>
+        </ul>
+
     </c:param>
 </c:import>

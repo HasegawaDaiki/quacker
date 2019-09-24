@@ -27,6 +27,10 @@ import javax.persistence.Table;
     @NamedQuery(
             name = "findQuacksByUser_id",
             query = "SELECT q From Quack AS q WHERE q.user.user_id = :user_id ORDER BY q.id DESC"
+            ),
+    @NamedQuery(
+            name = "getQuacksOfFollowingUser",
+            query = "SELECT q FROM Quack AS q WHERE q.user.user_id IN (:user_id) ORDER BY q.created_at DESC"
             )
 })
 
@@ -45,7 +49,7 @@ public class Quack {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "creatted_at", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
     @Column(name = "updated_at", nullable = false)
